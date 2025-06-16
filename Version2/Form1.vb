@@ -61,7 +61,17 @@ Public Class Form1
             arduinoConnected = True
         Catch ex As Exception
             arduinoConnected = False
-            MessageBox.Show("Mode non connecté : Arduino non détecté sur COM5", "Mode dégradé", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            MessageBox.Show(
+    "Mode déconnecté : aucune Arduino détectée sur le port COM5." & vbCrLf & vbCrLf &
+    "Vérifiez les points suivants :" & vbCrLf &
+    "- Arduino non branchée" & vbCrLf &
+    "- Mauvais port COM" & vbCrLf &
+    "- Carte Arduino défectueuse" & vbCrLf &
+    "- Port COM utilisé par une autre application (ex. : IDE Arduino)",
+    "Connexion Arduino impossible",
+    MessageBoxButtons.OK,
+    MessageBoxIcon.Warning
+)
         End Try
     End Sub
 
@@ -274,7 +284,14 @@ colone départ : " & startColumn
                 Try
                     port_com.Write(Hex(valeur) & "*")
                 Catch ex As Exception
-                    MessageBox.Show("Erreur lors de l'envoi au port COM : " & ex.Message, "Erreur COM", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    MessageBox.Show(
+    "Erreur de transmission avec l’Arduino sur le port COM5 pendant la lecture." & vbCrLf & vbCrLf &
+    "Détails techniques : " & ex.Message & vbCrLf & vbCrLf &
+    "Vérifiez que la connexion est toujours active et que le port COM n’est pas utilisé ailleurs.",
+    "Erreur COM pendant lecture",
+    MessageBoxButtons.OK,
+    MessageBoxIcon.Error
+)
                     arduinoConnected = False ' On repasse en mode non connecté si problème
                 End Try
             End If
@@ -307,13 +324,6 @@ colone départ : " & startColumn
 
         End If
 
-
-
-
-
-
-
-
     End Sub
 
     Private Sub RemiseA0_Click(sender As Object, e As EventArgs) Handles RemiseA0.Click, RemiseÀ0ToolStripMenuItem.Click
@@ -345,7 +355,14 @@ colone départ : " & startColumn
             Try
                 port_com.Write(Hex(0))
             Catch ex As Exception
-                MessageBox.Show("Erreur lors de l'envoi au port COM (stop) : " & ex.Message, "Erreur COM", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                MessageBox.Show(
+    "Erreur lors de l’envoi de la commande 'Stop' à l’Arduino sur le port COM5." & vbCrLf & vbCrLf &
+    "Détails techniques : " & ex.Message & vbCrLf & vbCrLf &
+    "Assurez-vous que la connexion est toujours active et que le port COM est libre.",
+    "Erreur COM – Arrêt",
+    MessageBoxButtons.OK,
+    MessageBoxIcon.Error
+)
             End Try
         End If
     End Sub
