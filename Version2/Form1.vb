@@ -341,13 +341,13 @@ colone départ : " & startColumn
         LED4RadioButton.Checked = 0
         ProgressBar1.Value = red_cursor_position
         Label5.Text = "fin"
-
-        Try
-            port_com.Write(Hex(0))
-        Catch ex As Exception
-            MessageBox.Show("Erreur lors de l'envoi au port COM (stop) : " & ex.Message, "Erreur COM", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-
+        If arduinoConnected Then
+            Try
+                port_com.Write(Hex(0))
+            Catch ex As Exception
+                MessageBox.Show("Erreur lors de l'envoi au port COM (stop) : " & ex.Message, "Erreur COM", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End Try
+        End If
     End Sub
 
     Private Sub marche_Click(sender As Object, e As EventArgs) Handles marche.Click, MarcheToolStripMenuItem.Click
