@@ -26,8 +26,6 @@ Ce dépôt Git contient :
 
 Les améliorations apportées seront détaillées en fin de document.
 
-
-
 ## Visuel
 
 ### À l’ouverture
