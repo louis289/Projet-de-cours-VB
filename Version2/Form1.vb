@@ -421,7 +421,7 @@ colone départ : " & startColumn
             Me.Invalidate()
 
         End If
-        Dim colorVoy(4) As Color
+        Dim colorVoy(8) As Color
 
         For i As Integer = 0 To 7
             colorVoy(i) = If(ledStates(i, k), If(i = 0, Color.Green, Color.Yellow), Color.Black)
@@ -431,6 +431,10 @@ colone départ : " & startColumn
         LED2.BackColor = colorVoy(1)
         LED3.BackColor = colorVoy(2)
         LED4.BackColor = colorVoy(3)
+        LED1.BackColor = colorVoy(4)
+        LED2.BackColor = colorVoy(5)
+        LED3.BackColor = colorVoy(6)
+        LED4.BackColor = colorVoy(7)
 
 
 
