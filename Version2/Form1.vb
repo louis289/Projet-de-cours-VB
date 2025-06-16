@@ -21,10 +21,7 @@ Public Class Form1
 
     Dim port_com As IO.Ports.SerialPort 'Pour l'arduino
 
-<<<<<<< HEAD
     Dim arduinoConnected As Boolean = False
-=======
->>>>>>> e7511f3e27f41646c2ba67b960934de867d4b258
 
 
     Dim red_cursor_speed As Integer = 500
@@ -56,7 +53,6 @@ Public Class Form1
         Label1.Text = "valeur curseur : " & k
         Label2.Text = "Position souris"
         Label3.Text = "coordonnées clic souris"
-<<<<<<< HEAD
         Try
             port_com = New IO.Ports.SerialPort
             port_com.PortName = "COM5" ' ← adapte si besoin
@@ -70,16 +66,6 @@ Public Class Form1
     End Sub
 
 
-=======
-        port_com = New IO.Ports.SerialPort
-        port_com.PortName = "COM5"
-        port_com.BaudRate = 9600
-        port_com.Open()
-
-
-    End Sub
-
->>>>>>> e7511f3e27f41646c2ba67b960934de867d4b258
     Private Sub InitializeLeds()
         For i As Integer = 0 To 7
             For j As Integer = 0 To 69
@@ -284,7 +270,6 @@ colone départ : " & startColumn
             'envoyer valeur a un arduino branché en port serie usb
             Label5.Text = "valeur " & red_cursor_position - 1 & " : " & valeur
 
-<<<<<<< HEAD
             If arduinoConnected Then
                 Try
                     port_com.Write(Hex(valeur) & "*")
@@ -294,9 +279,6 @@ colone départ : " & startColumn
                 End Try
             End If
 
-=======
-            port_com.Write(Hex(valeur) & "*")
->>>>>>> e7511f3e27f41646c2ba67b960934de867d4b258
             'port_com.Write("[" &
             'If (ledStates(0, red_cursor_position), "1", "0") &
             'If (ledStates(1, red_cursor_position), "1", "0") &
@@ -360,16 +342,12 @@ colone départ : " & startColumn
         ProgressBar1.Value = red_cursor_position
         Label5.Text = "fin"
 
-<<<<<<< HEAD
         Try
             port_com.Write(Hex(0))
         Catch ex As Exception
             MessageBox.Show("Erreur lors de l'envoi au port COM (stop) : " & ex.Message, "Erreur COM", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-=======
-        port_com.Write(Hex(0))
->>>>>>> e7511f3e27f41646c2ba67b960934de867d4b258
     End Sub
 
     Private Sub marche_Click(sender As Object, e As EventArgs) Handles marche.Click, MarcheToolStripMenuItem.Click
