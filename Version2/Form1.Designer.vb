@@ -70,7 +70,6 @@ Partial Class Form1
         StopToolStripMenuItem = New ToolStripMenuItem()
         SaveFileDialog1 = New SaveFileDialog()
         OpenFileDialog1 = New OpenFileDialog()
-        FolderBrowserDialog1 = New FolderBrowserDialog()
         LED5 = New Label()
         LED6 = New Label()
         LED8 = New Label()
@@ -629,7 +628,6 @@ Partial Class Form1
     Friend WithEvents StopToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
     Friend WithEvents OpenFileDialog1 As OpenFileDialog
-    Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents LED5 As Label
     Friend WithEvents LED6 As Label
     Friend WithEvents LED8 As Label

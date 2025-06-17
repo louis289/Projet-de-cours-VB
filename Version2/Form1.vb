@@ -55,7 +55,7 @@ Public Class Form1
         Label3.Text = "coordonnées clic souris"
         Try
             port_com = New IO.Ports.SerialPort
-            port_com.PortName = "COM5" ' ← adapte si besoin
+            port_com.PortName = "COM15"
             port_com.BaudRate = 9600
             port_com.Open()
             arduinoConnected = True
@@ -104,8 +104,6 @@ Public Class Form1
 
         Next
 
-
-
         LED1.BackColor = colorVoy(0)
         LED2.BackColor = colorVoy(1)
         LED3.BackColor = colorVoy(2)
@@ -114,9 +112,6 @@ Public Class Form1
         LED6.BackColor = colorVoy(5)
         LED7.BackColor = colorVoy(6)
         LED8.BackColor = colorVoy(7)
-
-
-
 
     End Sub
 
@@ -285,27 +280,33 @@ colone départ : " & startColumn
                     port_com.Write(Hex(valeur) & "*")
                 Catch ex As Exception
                     MessageBox.Show(
-    "Erreur de transmission avec l’Arduino sur le port COM5 pendant la lecture." & vbCrLf & vbCrLf &
-    "Détails techniques : " & ex.Message & vbCrLf & vbCrLf &
-    "Vérifiez que la connexion est toujours active et que le port COM n’est pas utilisé ailleurs.",
-    "Erreur COM pendant lecture",
-    MessageBoxButtons.OK,
-    MessageBoxIcon.Error
-)
+                    "Erreur de transmission avec l’Arduino sur le port COM5 pendant la lecture." & vbCrLf & vbCrLf &
+                    "Détails techniques : " & ex.Message & vbCrLf & vbCrLf &
+                    "Vérifiez que la connexion est toujours active et que le port COM n’est pas utilisé ailleurs.",
+                    "Erreur COM pendant lecture",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                )
+                    arduinoConnected = False ' On repasse en mode non connecté si problème
+                End Try
+            End If
+        Else
+            If arduinoConnected Then
+                Try
+                    port_com.Write(Hex(0) & "*")
+                Catch ex As Exception
+                    MessageBox.Show(
+                    "Erreur de transmission avec l’Arduino sur le port COM5 pendant la lecture." & vbCrLf & vbCrLf &
+                    "Détails techniques : " & ex.Message & vbCrLf & vbCrLf &
+                    "Vérifiez que la connexion est toujours active et que le port COM n’est pas utilisé ailleurs.",
+                    "Erreur COM pendant lecture",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                )
                     arduinoConnected = False ' On repasse en mode non connecté si problème
                 End Try
             End If
 
-            'port_com.Write("[" &
-            'If (ledStates(0, red_cursor_position), "1", "0") &
-            'If (ledStates(1, red_cursor_position), "1", "0") &
-            'If (ledStates(2, red_cursor_position), "1", "0") &
-            'If (ledStates(3, red_cursor_position), "1", "0") &
-            '   "]"Then)
-
-
-
-        Else
             RedCursor.Visible = 0
             red_cursor_position = 0
             RedCursor.Left = 50 + red_cursor_position * ledSizeX + 4
@@ -349,20 +350,24 @@ colone départ : " & startColumn
         LED2RadioButton.Checked = 0
         LED3RadioButton.Checked = 0
         LED4RadioButton.Checked = 0
+        LED5RadioButton.Checked = 0
+        LED6RadioButton.Checked = 0
+        LED7RadioButton.Checked = 0
+        LED8RadioButton.Checked = 0
         ProgressBar1.Value = red_cursor_position
         Label5.Text = "fin"
         If arduinoConnected Then
             Try
-                port_com.Write(Hex(0))
+                port_com.Write(Hex(0) & "*")
             Catch ex As Exception
                 MessageBox.Show(
-    "Erreur lors de l’envoi de la commande 'Stop' à l’Arduino sur le port COM5." & vbCrLf & vbCrLf &
-    "Détails techniques : " & ex.Message & vbCrLf & vbCrLf &
-    "Assurez-vous que la connexion est toujours active et que le port COM est libre.",
-    "Erreur COM – Arrêt",
-    MessageBoxButtons.OK,
-    MessageBoxIcon.Error
-)
+                "Erreur lors de l’envoi de la commande 'Stop' à l’Arduino sur le port COM5." & vbCrLf & vbCrLf &
+                "Détails techniques : " & ex.Message & vbCrLf & vbCrLf &
+                "Assurez-vous que la connexion est toujours active et que le port COM est libre.",
+                "Erreur COM – Arrêt",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Error
+            )
             End Try
         End If
     End Sub
@@ -372,23 +377,12 @@ colone départ : " & startColumn
         Timer1.Enabled = 1
     End Sub
 
-    Private Sub remi(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub pau(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub remise(sender As Object, e As EventArgs)
-
-    End Sub
-
     Private Sub EnregistrerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles EnregistrerToolStripMenuItem.Click
 
         Dim monFichier As System.IO.StreamWriter
 
         'SaveFileDialog1.ShowDialog()
+        SaveFileDialog1.FileName = "HuitLedsArduino"
         If SaveFileDialog1.ShowDialog = DialogResult.OK Then
             monFichier = My.Computer.FileSystem.OpenTextFileWriter(SaveFileDialog1.FileName, False)
             For i = 0 To 7
@@ -400,9 +394,6 @@ colone départ : " & startColumn
             Next
             monFichier.Close()
         End If
-
-
-
 
     End Sub
 
@@ -436,19 +427,6 @@ colone départ : " & startColumn
         LED3.BackColor = colorVoy(6)
         LED4.BackColor = colorVoy(7)
 
-
-
     End Sub
 
-    Private Sub Label7_Click(sender As Object, e As EventArgs) Handles LED6.Click
-
-    End Sub
-
-    Private Sub RadioButton8_CheckedChanged(sender As Object, e As EventArgs) Handles LED8RadioButton.CheckedChanged
-
-    End Sub
-
-    Private Sub Panel2_Paint(sender As Object, e As PaintEventArgs) Handles Panel2.Paint
-
-    End Sub
 End Class
